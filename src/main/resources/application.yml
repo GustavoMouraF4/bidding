@@ -1,8 +1,9 @@
 spring:
-  data.mongodb:
-    host: localhost
-    port: 27017
-    database: bidding
-    user: dev
-    password: dev
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: bidding
+      user: devroot
+      password: devroot
 
