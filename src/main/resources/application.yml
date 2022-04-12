@@ -6,4 +6,5 @@ spring:
       database: bidding
       user: devroot
       password: devroot
-
+server:
+  port: 1903
