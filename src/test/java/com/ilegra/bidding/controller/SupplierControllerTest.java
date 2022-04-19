@@ -1,8 +1,8 @@
 package com.ilegra.bidding.controller;
 
-import com.ilegra.bidding.model.Supplier;
-import com.ilegra.bidding.repository.SupplierRepository;
-import com.ilegra.bidding.service.SupplierService;
+import com.ilegra.bidding.supplier.Supplier;
+import com.ilegra.bidding.supplier.SupplierRepository;
+import com.ilegra.bidding.supplier.SupplierService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

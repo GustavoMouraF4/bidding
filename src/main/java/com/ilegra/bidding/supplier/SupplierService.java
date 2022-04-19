@@ -1,9 +1,8 @@
-package com.ilegra.bidding.service;
+package com.ilegra.bidding.supplier;
 
-import com.ilegra.bidding.model.Supplier;
-import com.ilegra.bidding.repository.SupplierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -16,4 +15,7 @@ public class SupplierService {
     return supplierRepository.save(supplier);
   }
 
+  public Flux<Supplier> findAll() {
+    return supplierRepository.findAll();
+  }
 }

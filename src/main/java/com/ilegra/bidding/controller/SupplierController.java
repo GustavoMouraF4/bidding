@@ -1,15 +1,12 @@
 package com.ilegra.bidding.controller;
 
 
-import com.ilegra.bidding.model.Supplier;
-import com.ilegra.bidding.service.SupplierService;
+import com.ilegra.bidding.supplier.Supplier;
+import com.ilegra.bidding.supplier.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -23,5 +20,11 @@ public class SupplierController {
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Supplier> create(@RequestBody Supplier supplier) {
     return supplierService.create(supplier);
+  }
+
+  @GetMapping
+  @ResponseStatus(HttpStatus.OK)
+  public Flux<Supplier> findlAll() {
+    return supplierService.findAll();
   }
 }

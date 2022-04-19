@@ -5,8 +5,8 @@ services:
     container_name: mongo
     image: mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=devroot
-      - MONGO_INITDB_ROOT_PASSWORD=devroot
+      - MONGO_INITDB_ROOT_USERNAME=dev
+      - MONGO_INITDB_ROOT_PASSWORD=dev
       - MONGO_INITDB_DATABASE=bidding
     ports:
       - '27017:27017'
@@ -22,8 +22,8 @@ services:
       - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
       - ME_CONFIG_MONGODB_AUTH_USERNAME=devroot
       - ME_CONFIG_MONGODB_AUTH_PASSWORD=devroot
-      - ME_CONFIG_BASICAUTH_USERNAME=devroot
-      - ME_CONFIG_BASICAUTH_PASSWORD=devroot
+      - ME_CONFIG_BASICAUTH_USERNAME=dev
+      - ME_CONFIG_BASICAUTH_PASSWORD=dev
     depends_on:
       - mongo
     ports:
