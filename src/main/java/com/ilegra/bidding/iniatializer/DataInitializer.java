@@ -5,6 +5,7 @@ import com.ilegra.bidding.supplier.Address;
 import com.ilegra.bidding.supplier.Contact;
 import com.ilegra.bidding.supplier.Supplier;
 import com.ilegra.bidding.supplier.SupplierRepository;
+import com.ilegra.bidding.supplier.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
-    private final SupplierRepository supplierRepository;
+    private final SupplierService supplierService;
 
     @Override
     public void run(String... args) {
@@ -45,7 +46,7 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
             suppliers.add(supplier);
         }
-        supplierRepository.insert(suppliers)
+        supplierService.createMany(suppliers)
                 .subscribe();
     }
 }

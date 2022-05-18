@@ -1,6 +1,6 @@
 spring:
   data:
     mongodb:
-      uri: 'mongodb://devroot:devroot@localhost:27017/bidding?authSource=admin&retryWrites=true&w=majority'
+      uri: 'mongodb://dev:dev@localhost:27017/bidding?authSource=admin&retryWrites=true&w=majority'
 server:
   port: 1903

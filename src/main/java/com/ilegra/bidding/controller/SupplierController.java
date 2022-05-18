@@ -1,6 +1,8 @@
 package com.ilegra.bidding.controller;
 
 
+import com.ilegra.bidding.publisher.OutboxEvent;
+import com.ilegra.bidding.publisher.OutboxEventRepository;
 import com.ilegra.bidding.supplier.Supplier;
 import com.ilegra.bidding.supplier.SupplierService;
 import java.util.List;
@@ -19,6 +21,7 @@ import reactor.core.publisher.Mono;
 public class SupplierController {
 
   private final SupplierService supplierService;
+  private final OutboxEventRepository outboxEventRepository;
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
@@ -31,4 +34,11 @@ public class SupplierController {
   public Flux<Supplier> findAll(@RequestParam(required = false) List<String> name) {
     return supplierService.findAll(name);
   }
+
+  @GetMapping("/seba")
+  @ResponseStatus(HttpStatus.OK)
+  public Flux<OutboxEvent> findAllOutbox() {
+    return outboxEventRepository.findAll();
+  }
+
 }
