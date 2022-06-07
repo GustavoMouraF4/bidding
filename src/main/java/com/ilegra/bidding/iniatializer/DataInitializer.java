@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 

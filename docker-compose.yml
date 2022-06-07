@@ -5,15 +5,15 @@ services:
     container_name: mongo
     image: mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=dev
-      - MONGO_INITDB_ROOT_PASSWORD=dev
       - MONGO_INITDB_DATABASE=bidding
     ports:
       - '27017:27017'
     networks:
       - network-backend
+    command: --replSet rs0
     volumes:
       - ./data:/data/db
+      - ./rs-init.sh:/scripts/rs-init.sh
 
   mongo-express:
     image: mongo-express
@@ -21,8 +21,6 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongo
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
       - ME_CONFIG_MONGODB_ADMINDATABASE=bidding
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=dev
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=dev
       - ME_CONFIG_BASICAUTH_USERNAME=seba
       - ME_CONFIG_BASICAUTH_PASSWORD=ogato
     depends_on:
@@ -91,10 +89,30 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_AUTO_CREATE_TOPICS_ENABLE: "true"
     ports:
       - 8083:8083
     networks:
       - network-backend
+    command:
+      - bash
+      - -c
+      - |
+        echo 'Installing Connector'
+        confluent-hub install --no-prompt mongodb/kafka-connect-mongodb:1.7.0
+        echo 'Launching Kafka Connect worker'
+        /etc/confluent/docker/run &
+        echo 'Waiting for Kafka Connect listener'
+        while : ; do
+          curl_status=$$(curl -s -o /dev/null -w %{http_code} http://localhost:8083/connectors)
+          echo -e $$(date) ' Kafka Connect listener HTTP state: ' $$curl_status ' (waiting for 200)'
+          if [ $$curl_status -eq 200 ] ; then
+            break
+          fi
+          sleep 10
+        done
+        echo -e '\n--\n+> Creating Kafka Connector'
+        sleep infinity
 
 networks:
   network-backend:
